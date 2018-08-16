@@ -1,0 +1,26 @@
+
+@mixin transform($transforms) {
+    -moz-transform: $transforms;
+      -o-transform: $transforms;
+     -ms-transform: $transforms;
+ -webkit-transform: $transforms;
+       transform: $transforms;
+}
+
+@mixin box-sizing($box-model) {
+    -webkit-box-sizing: $box-model; // Safari <= 5
+       -moz-box-sizing: $box-model; // Firefox <= 19
+            box-sizing: $box-model;
+}
+
+@mixin box-shadow($top, $left, $blur, $color, $inset: false) {
+    @if $inset {
+      -webkit-box-shadow:inset $top $left $blur $color;
+      -moz-box-shadow:inset $top $left $blur $color;
+      box-shadow:inset $top $left $blur $color;
+    } @else {
+      -webkit-box-shadow: $top $left $blur $color;
+      -moz-box-shadow: $top $left $blur $color;
+      box-shadow: $top $left $blur $color;
+    }
+  }
