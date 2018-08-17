@@ -4,11 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "mocha-webpack --webpack-config webpack.config.test.js \"src/**/*.spec.js\" || true",
+    "test": "mocha-webpack --webpack-config webpack.config.test.js \"src/**/*.spec.js\" ",
     "watch": "mocha-webpack --webpack-config webpack.config.test.js --watch \"src/**/*.spec.js\" || true",
     "build-dev": "webpack --config webpack.config.js",
     "build-prod": "cross-env NODE_ENV=production webpack --config webpack.config.js",
-    "start": "webpack-dev-server"
+    "start": "webpack-dev-server",
+    "precommit": "npm run test"
   },
   "author": "",
   "license": "ISC",
@@ -39,6 +40,7 @@
     "html-webpack-inline-svg-plugin": "^1.2.4",
     "html-webpack-plugin": "^2.29.0",
     "html-webpack-plugin-remove": "^0.1.0",
+    "husky": "^0.14.3",
     "image-webpack-loader": "^4.3.1",
     "jsdom-global": "^3.0.2",
     "mocha": "^5.2.0",

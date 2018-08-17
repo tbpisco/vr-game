@@ -31,7 +31,7 @@ plugins.push(new HtmlWepackPlugin({
 plugins.push(new HtmlPluginRemove(/<script type="text\/javascript" src="js\/scss\.js.*?<\/script>/));
 plugins.push(new HtmlPluginRemove(/<script type="text\/javascript" src="js\/inlinescss\.js.*?<\/script>/));
 plugins.push(new extractTextPlugin('css/inline_style.css'));
-plugins.push(new StyleExtHtmlWebpackPlugin({minify: true, file:'css/inline_style.css'}));
+//plugins.push(new StyleExtHtmlWebpackPlugin({minify: true, file:'css/inline_style.css'}));
 //plugins.push(new StyleExtHtmlWebpackPlugin({minify: true, file:'css/style.css'}));
 plugins.push(new ScriptExtHtmlWebpackPlugin({inline:['js/inline.js'], defaultAttribute:'async'}))
 
