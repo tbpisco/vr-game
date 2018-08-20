@@ -15,13 +15,17 @@ export class TaskbarView {
     };
 
     [init](){
+
         this[addTaskbarContainer]();
         this[addMenuTools]();
         this[addEvents]();
+
     };    
 
     [addTaskbarContainer](){
+
         this.view = this[createTaskbarContainer]();
+
     };
 
     [createTaskbarContainer](){
@@ -80,6 +84,7 @@ export class TaskbarView {
     };
 
     show(container){
+        
         this.container = container;
         this.container.appendChild(this.view); 
 

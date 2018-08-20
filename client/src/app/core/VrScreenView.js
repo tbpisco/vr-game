@@ -1,4 +1,3 @@
-
 const addScreenContainer = Symbol('addScreenContainer');
 const addTitleContainer = Symbol('addTitleContainer');
 const addInstructionContainer = Symbol('addInstructionContainer');
@@ -85,8 +84,14 @@ export class VrScreenView {
 
     [addQRCode](){
        this.qrCode = this[createQRCode]();
-       this.container.appendChild(this.titleView);
-        //self.qrCode.qrcode({width: 256, height:256, text: window.location.href.split("?")[0] + "?vr=true"});*/
+       this.container.appendChild(this.qrCode);
+       /*var qrcodeElement = new QRCode(this.qrCode, {
+        text: window.location.href.split("?")[0] + "?vr=true",
+        width: 256,
+        height: 256,
+        colorDark : "#000000",
+        colorLight : "#ffffff"
+        });*/
     };
 
     addActionMode(_action){
