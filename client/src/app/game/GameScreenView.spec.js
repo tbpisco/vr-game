@@ -54,5 +54,11 @@ describe('GameScreenView', function() {
 
   })
 
+  after(function () {
+    
+    sinon.restore();
+
+  });
+
   
 });
