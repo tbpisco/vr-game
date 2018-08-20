@@ -3,18 +3,29 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "nyc": {
+    "include": [
+      "./src/**/*.js"
+    ],
+    "exclude": [
+      "./src/**/*.spec.js"
+    ],
+    "instrument": false,
+    "sourceMap": false,
+    "all": true
+  },
   "scripts": {
-    "test": "mocha-webpack --webpack-config webpack.config.test.js \"src/**/*.spec.js\" ",
+    "test": "mocha-webpack --webpack-config webpack.config.test.js \"src/**/*.spec.js\"",
     "watch": "mocha-webpack --webpack-config webpack.config.test.js --watch \"src/**/*.spec.js\" || true",
     "build-dev": "webpack --config webpack.config.js",
     "build-prod": "cross-env NODE_ENV=production webpack --config webpack.config.js",
     "start": "webpack-dev-server",
-    "precommit": "npm run test"
+    "precommit": "npm run test",
+    "cover": "cross-env NODE_ENV=coverage nyc --reporter=lcov --reporter=text npm run test"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "google-charts": "^1.1.0",
     "reflect-metadata": "^0.1.10"
   },
   "devDependencies": {
@@ -30,7 +41,7 @@
     "classlist-polyfill": "^1.2.0",
     "clean-webpack-plugin": "^0.1.19",
     "copy-webpack-plugin": "^4.5.1",
-    "cross-env": "^5.0.1",
+    "cross-env": "^5.2.0",
     "css-loader": "^0.28.4",
     "cssnano": "^3.10.0",
     "extract-loader": "^2.0.1",
@@ -42,12 +53,15 @@
     "html-webpack-plugin-remove": "^0.1.0",
     "husky": "^0.14.3",
     "image-webpack-loader": "^4.3.1",
-    "jsdom-global": "^3.0.2",
+    "istanbul-instrumenter-loader": "^3.0.1",
+    "jsdom": "12.0.0",
+    "jsdom-global": "3.0.2",
     "mocha": "^5.2.0",
     "mocha-jsdom": "^2.0.0",
     "mocha-webpack": "^1.1.0",
     "mock-local-storage": "^1.0.5",
     "node-sass": "^4.9.0",
+    "nyc": "^12.0.2",
     "optimize-css-assets-webpack-plugin": "^2.0.0",
     "postcss-loader": "^2.1.5",
     "sass-loader": "^7.0.3",
@@ -59,6 +73,7 @@
     "svg-inline-loader": "^0.8.0",
     "url-loader": "^0.5.9",
     "webpack": "^3.12.0",
-    "webpack-dev-server": "^2.5.1"
+    "webpack-dev-server": "^2.5.1",
+    "webpack-node-externals": "^1.7.2"
   }
 }

@@ -12,6 +12,8 @@ const HtmlWebpackInlineSVGPlugin = require('html-webpack-inline-svg-plugin');
 const StyleExtHtmlWebpackPlugin = require('style-ext-html-webpack-plugin');
 const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
 
+var isCoverage = process.env.NODE_ENV === 'coverage';
+
 let plugins = [];
 
 plugins.push(new HtmlWepackPlugin({
@@ -96,7 +98,7 @@ module.exports = {
         app: './src/app.js',
       //  inline: './src/app/inline.js',
         scss: './src/scss/style.scss',
-        inlinescss: './src/scss/inline_style.scss'//,
+      //  inlinescss: './src/scss/inline_style.scss'//,
       //  vendor: ['babel-polyfill', 'reflect-metadata' , 'classlist-polyfill']
     },
     output: {
@@ -104,7 +106,12 @@ module.exports = {
         path: path.resolve(__dirname, 'build')
     },
     module: {
-        rules: [
+        rules:[].concat(
+            isCoverage ? {
+                test: /\.(js|ts)/,
+                include: path.resolve('src'), // instrument only testing sources with Istanbul, after ts-loader runs
+                loader: 'istanbul-instrumenter-loader'
+            }: [],
             {
                 test: /\.js$/,
                 exclude: /node_modules/,
@@ -209,7 +216,7 @@ module.exports = {
                   },
                 ],
             } */          
-        ]
+        )
     }, 
     plugins
 }
