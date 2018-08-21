@@ -1,0 +1,15 @@
+.radius{
+    @include border-radius(0.5em);
+}
+
+.button{
+    border: 0;
+    text-align: center;
+    background: $second-color;
+    padding: 0.5em 1em;
+    margin: 0.5em auto;
+    font-size: 1em;
+    color: $default-font-color;
+    cursor: pointer;
+    @extend .radius;
+}
