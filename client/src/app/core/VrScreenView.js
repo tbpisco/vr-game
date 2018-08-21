@@ -54,7 +54,7 @@ export class VrScreenView {
         let view = document.createElement("div"); 
         view.id= "vr-screen";
         this.container = document.createElement("div"); 
-        this.container.className = "container";
+        this.container.className = "inner-container";
         return view;
     };
 
