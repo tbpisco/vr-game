@@ -64,7 +64,7 @@ export class HelpScreenView {
     };
 
     [createInstructionContainer](content){
-        let view = document.createElement("div"); 
+        let view = document.createElement("p"); 
         view.innerHTML = content;
         return view;
     };

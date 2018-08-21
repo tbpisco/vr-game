@@ -1,21 +1,22 @@
 import * as GameEvents from './signals/GameEvents.js';
 
 const closeHelpScreen = Symbol('closeHelpScreen');
+const openHelpScreen = Symbol('openHelpScreen');
 
 export class HelpScreenPresenter {
 
 	constructor(view) {
         
         this.view = view; 
-        window.addEventListener(GameEvents.OPEN_HELP_SCREEN, this.openHelpScreen.bind(this), false);
+        window.addEventListener(GameEvents.OPEN_HELP_SCREEN, this[openHelpScreen].bind(this), false);
     }
 
     setupModel(_model){
         this.model = _model;
     };
 
-    openHelpScreen(){      
-        this.view.addHelpScreenContainer("");
+    [openHelpScreen](){      
+        this.view.addHelpScreenContainer("Help instructions goes here.");
         this.view.addActionMode(this[closeHelpScreen].bind(this));
         this.view.show();
     };
