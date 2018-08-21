@@ -1,28 +1,34 @@
-//const init = Symbol('init');
-let TAMANHO_TILE = 100;
-let QTD_TILES = 15;
+const init = Symbol('init');
+const addSceneContainer = Symbol('addSceneContainer');
+const createSceneContainer = Symbol('createSceneContainer');
 
 export class SceneView {
 
-	constructor() {
-
-        
+  constructor() {
+  
   };
 
-  init(){
-      this.addSceneContainer();
-      this.addCanvasElement();
+  init(_holder){
+      this.holder = _holder;
+      this[addSceneContainer]();
+      //this.addCanvasElement();
   };
 
-addSceneContainer(){
-   this.view = this.createSceneContainer();
-};
+  [addSceneContainer](){
 
-createSceneContainer(){
-   // return $('<div id="farm"></div>');
-};
+    this.view = this[createSceneContainer]();
 
-addCanvasElement(){
+  };
+
+  [createSceneContainer](){
+
+    let view = document.createElement("div"); 
+    view.id= "scene";
+    return view;
+
+  };
+
+/*addCanvasElement(){
     //self.canvas = createCanvasElement();
    // self.view.append(self.canvas);
 };
@@ -32,12 +38,12 @@ createCanvasElement(){
 };
 
 addRendererWebGL(){
-    /*self.renderer = new THREE.WebGLRenderer({canvas: self.canvas[0], antialias:true});
+    self.renderer = new THREE.WebGLRenderer({canvas: self.canvas[0], antialias:true});
     self.renderer.sortObjects = false;
     self.renderer.setClearColor(0x000000, 0);
     self.renderer.autoClear = false;
     self.renderer.shadowMapEnabled = true;
-    self.renderer.shadowMapSoft = true;*/
+    self.renderer.shadowMapSoft = true;
 };
 
 addScene(){
@@ -46,30 +52,30 @@ addScene(){
 };
 
 addCamera(){
-  /*  if(self.VRViewEnabled){
+    if(self.VRViewEnabled){
         self.camera = new THREE.PerspectiveCamera(95, self.widthApp/self.heightApp, 0.001, 700);
         self.camera.position.set( 100,100,100);
     } else {
         self.camera = new THREE.PerspectiveCamera(45, self.widthApp / self.heightApp, 0.1, 20000);
         self.camera.position.set( 200,700,800);
     }
-    self.scene.add(self.camera);*/
+    self.scene.add(self.camera);
 };
 
 enableVr(){
-  /*this.VRViewEnabled = !this.VRViewEnabled;
+  this.VRViewEnabled = !this.VRViewEnabled;
   resetCameraControls();
   addCamera();
   addControls();
   if(self.VRViewEnabled)self.effect = new THREE.StereoEffect(self.renderer);
-  self.updateCanvasSize();*/
+  self.updateCanvasSize();
 };
 
 resetCameraControls(){
-   /* if(self.scene)self.scene.remove(self.camera);
+    if(self.scene)self.scene.remove(self.camera);
     self.camera = null;
     self.controls = null;
-    self.effect = null;*/
+    self.effect = null;
 };
 
 addLight(){
@@ -101,7 +107,7 @@ addLight(){
 
     self.scene.add(self.directionalLight);
 
-    /*self.spotLight = new THREE.SpotLight( 0xffffff );
+    self.spotLight = new THREE.SpotLight( 0xffffff );
     self.spotLight.position.set( 100, 2000, 100 );
     self.spotLight.scale.set( 10, 10, 10 );
     self.spotLight.intensity = 0.3;
@@ -112,10 +118,10 @@ addLight(){
 
     self.spotLight.shadow.camera.near = 500;
     self.spotLight.shadow.camera.far = 4000;
-    self.spotLight.shadow.camera.fov = 30;*/
+    self.spotLight.shadow.camera.fov = 30;
 
 
-    /*self.spotLight = new THREE.SpotLight( 0xffffff );
+    self.spotLight = new THREE.SpotLight( 0xffffff );
     self.spotLight.position.set( 100, 2000, 100 );
     self.spotLight.scale.set( 10, 10, 10 );
     self.spotLight.intensity = 0.3;
@@ -128,7 +134,7 @@ addLight(){
     self.spotLight.shadowCameraFar = 4000;
     self.spotLight.shadowCameraFov = 30;
 
-    self.scene.add( self.spotLight );*/
+    self.scene.add( self.spotLight );
 };
 
 addEvents(){
@@ -136,12 +142,12 @@ addEvents(){
 };
 
 addControls(){
-   /* if(self.VRViewEnabled){
+    if(self.VRViewEnabled){
         self.controls = new THREE.DeviceOrientationControls(self.camera);
     } else {
         self.controls = new THREE.OrbitControls( self.camera , self.canvas[0]);
     }
-    self.controls.damping = 0.2;*/
+    self.controls.damping = 0.2;
 };
 
 addEventsForMobile(){
@@ -151,7 +157,7 @@ addEventsForMobile(){
 
 addTiles(){
 
-  /*  this.objects = [];
+   this.objects = [];
 
     this.matrixTiles = [];
     for (var i = 0; i < QTD_TILES; i++) {
@@ -178,18 +184,18 @@ addTiles(){
             this.scene.add(tileVazio);
         
         };
-      };    */   
+      };    
       
 };
 
-/*var createSky = function(){
+var createSky = function(){
     var geometry = new THREE.SphereGeometry( 3000, 32, 32 );
     var material = self.ceu;
     material.side = THREE.DoubleSide;
     var sky = new THREE.Mesh( geometry, material );
     sky.position.y = 1000;
     self.scene.add( sky );
-};*/
+};
 
 createTexture(name, src){
    // var texture = new THREE.TextureLoader().load( src );
@@ -208,7 +214,7 @@ addElement(name){
 };
 
 updateCanvasSize(){
-  /* self.widthApp = self.view.width();
+   self.widthApp = self.view.width();
    self.heightApp = self.view.height();
 
    self.renderer.setSize(self.widthApp, self.heightApp);
@@ -219,12 +225,12 @@ updateCanvasSize(){
         self.camera.aspect = self.widthApp / self.heightApp;
    }
    
-   self.camera.updateProjectionMatrix();*/
+   self.camera.updateProjectionMatrix();
 };
 
   animate() {
 
-    /*  requestAnimationFrame(animate);
+      requestAnimationFrame(animate);
       self.renderer.clear();
 
       if(self.VRViewEnabled){
@@ -237,25 +243,25 @@ updateCanvasSize(){
 
       }
       
-      self.controls.update();*/
+      self.controls.update();
   };
 
 
   addNewModel(object, model){
       
-     /* newModel = new THREE.Mesh( self[model].geometry , materials );
+      newModel = new THREE.Mesh( self[model].geometry , materials );
       newModel.name = newName;
       newModel.opacity = 1;
       newModel.position.set( object.position.x,  object.position.y,  object.position.z);
       newModel.castShadow = true;
       
       self.objects.push( newModel );
-      self.scene.add( newModel );*/
+      self.scene.add( newModel );
 
   };
 
   removeObjectInScene(){
-    /*var object = this.scene.getObjectByName(name);
+    var object = this.scene.getObjectByName(name);
     if(object){
 
       for (var i = 0; i < this.objects.length; i++) {
@@ -265,30 +271,19 @@ updateCanvasSize(){
       }
 
       this.scene.remove( object );
-    }*/
-  }
+    }
+  }*/
 
   getView(){
     return this.view;
   };
 
   hide(){
-    //$(this.view).remove();
+    this.holder.removeChild(this.view);
   };
 
   show(){
-      /*$("body").append(this.view);
-      self.widthApp = self.view.width();
-      self.heightApp = self.view.height();
-      addRendererWebGL();
-      addScene();
-      addCamera();
-      addLight();
-      addEvents();
-      addControls();
-      addModels();
-      if(self.VRViewEnabled)self.effect = new THREE.StereoEffect(self.renderer);
-      animate();*/
+    this.holder.appendChild(this.view); 
   };
 }
 

@@ -40,7 +40,7 @@ export class GameScreenPresenter {
         this.vrGlass.setupModel(model);
 
         this.taskbar.addTaskbar();
-        this.scene.addScene();
+        //this.scene.addScene();
         this.view.show();
     };
 

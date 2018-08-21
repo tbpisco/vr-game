@@ -1,4 +1,4 @@
-import { GameScreenView } from './GameScreenView.js';
+import { SceneView } from './SceneView.js';
 
 require('jsdom-global')()
 var chai = require('chai');
@@ -7,36 +7,43 @@ chai.use(require('sinon-chai'));
 var expect = chai.expect;
 var sinon = require('sinon');
 
-var gameScreenView;
+var sceneView;
 var div;
 
-describe('GameScreenView', function() {
+describe('SceneView', function() {
 
   before(function() {
 
-    gameScreenView = new GameScreenView();
-    div = gameScreenView.getView();
+    sceneView = new SceneView();
+    sceneView.init(document.body);
+    div = sceneView.getView();
 
   });
 
   
-  it("should getView() should return a div with id equals game-screen", function(){
+  it("should getView() should return a div with id equals scene", function(){
     
-    expect(div.id).to.equal("game-screen");
+    expect(div.id).to.equal("scene");
+
+  })
+
+  it("should sceneView.holder be equal element received on sceneView.init() call", function(){
+    
+    expect(sceneView.holder).to.equal(document.body);
 
   })
 
   it("should getView() should return a div", function(){
     
-    expect(div).have.id('game-screen');
+    expect(div).have.id('scene')
 
   })
 
   it("show() should call appenChild once", function(){
     
     var appendChild = sinon.fake();
-    sinon.replace(document.body, 'appendChild', appendChild);
-    gameScreenView.show();
+    sinon.replace(sceneView.holder, 'appendChild', appendChild);
+    sceneView.show();
 
     expect(appendChild).calledOnce;
     expect(appendChild).calledWith(div);
@@ -46,8 +53,8 @@ describe('GameScreenView', function() {
   it("hide() should call removeChild once", function(){
     
     var removeChild = sinon.fake();
-    sinon.replace(document.body, 'removeChild', removeChild);
-    gameScreenView.hide();
+    sinon.replace(sceneView.holder, 'removeChild', removeChild);
+    sceneView.hide();
 
     expect(removeChild).calledOnce;
     expect(removeChild).calledWith(div);

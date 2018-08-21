@@ -4,46 +4,43 @@ const init = Symbol('init');
 
 export class ScenePresenter {
 
-	constructor(view) {
+	constructor(view, _holder) {
 
         this.view = view;
-        window.addEventListener(GameEvents.ENABLE_VR, this.enableVr.bind(this), false);
+        this.holder = _holder;
+        //window.addEventListener(GameEvents.ENABLE_VR, this.enableVr.bind(this), false);
     };
 
-    enableVr(){
+    /*enableVr(){
         this.view.enableVr();
-    };
-
-    addScene(){
-        this.view.show();
-        this.init();
-    };
+    };*/
 
     setupModel(model){
         this.model = model;
 
-        if(this.model.getIsMobile()){
+      /*  if(this.model.getIsMobile()){
             this.view.addEventsForMobile();
-        } 
+        } */
         
-        this.view.init();
+        this[init]();
     };
 
-    init(){ 
+    [init](){ 
         
+        this.view.init(this.holder);
 
-        window.addEventListener("resize", this.resizeWindow.bind(this));
+        /*window.addEventListener("resize", this.resizeWindow.bind(this));
 
         this.resizeWindow();
 
         this.view.addTiles();
 
-        /*this.view.canvas[0].addEventListener( 'mouseup', onDocumentMouseUp, false );
+        this.view.canvas[0].addEventListener( 'mouseup', onDocumentMouseUp, false );
         this.view.canvas[0].addEventListener( 'mousedown', onDocumentMouseDown, false );
         this.view.canvas[0].addEventListener( 'mousemove', onDocumentMouseMove, false );*/
     };
 
-    onDocumentMouseMove(event) {
+    /*onDocumentMouseMove(event) {
 
         event.preventDefault();
         mouseMoveUpdate(event.clientX, event.clientY);
@@ -96,7 +93,7 @@ export class ScenePresenter {
 
     resizeWindow(){
        this.view.updateCanvasSize();
-    };
+    };*/
     
 }
 
