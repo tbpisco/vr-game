@@ -85,6 +85,10 @@ export class VrScreenView {
     [addQRCode](){
        this.qrCode = this[createQRCode]();
        this.container.appendChild(this.qrCode);
+       var qr = qrcode(4,"L");
+       qr.addData(window.location.href.split("?")[0] + "?vr=true");
+       qr.make();
+       this.qrCode.innerHTML = qr.createImgTag();
        /*var qrcodeElement = new QRCode(this.qrCode, {
         text: window.location.href.split("?")[0] + "?vr=true",
         width: 256,

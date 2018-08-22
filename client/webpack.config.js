@@ -45,6 +45,8 @@ plugins.push(new CopyWebpackPlugin([{
     from: 'src/fonts/', to: 'fonts/'
 }]));
 
+plugins.push(new webpack.ProvidePlugin({qrcode:"qrcode"}));
+
 plugins.push(new CopyWebpackPlugin([{
     from: 'icons/*.png', to: __dirname + '/build/'
 },
@@ -94,12 +96,17 @@ plugins.push(new CleanWebpackPlugin([
 plugins.push(new webpack.DefinePlugin({ SERVICE_URL }));
 
 module.exports = {
+    resolve:{
+        alias:{
+            qrcode:"qrcode-generator/qrcode.js"
+        }
+    },
     entry: {
         app: './src/app.js',
       //  inline: './src/app/inline.js',
         scss: './src/scss/style.scss',
       //  inlinescss: './src/scss/inline_style.scss'//,
-      //  vendor: ['babel-polyfill', 'reflect-metadata' , 'classlist-polyfill']
+       vendor: ['babel-polyfill', 'qrcode-generator' , 'classlist-polyfill']
     },
     output: {
         filename: 'js/[name].js',
