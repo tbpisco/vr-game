@@ -116,7 +116,7 @@ module.exports = {
         rules:[].concat(
             isCoverage ? {
                 test: /\.(js|ts)/,
-                include: path.resolve('src'), // instrument only testing sources with Istanbul, after ts-loader runs
+                include: path.resolve('src'), 
                 loader: 'istanbul-instrumenter-loader'
             }: [],
             {

@@ -72,10 +72,6 @@ export class TaskbarView {
     toggleVR(){
         this.view.classList.toggle("vr");
     };
-
-    setupModel(_model){
-        
-    };
     
     hide(){
 

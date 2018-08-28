@@ -24,6 +24,7 @@ export class TaskbarPresenter {
 
     setupModel(model){
         this.model = model;
+        this.addTaskbar();
     };
 
     hide(){

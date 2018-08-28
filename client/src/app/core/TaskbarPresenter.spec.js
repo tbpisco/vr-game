@@ -20,6 +20,7 @@ describe('TaskbarPresenter', function() {
     taskbarViewElement.show = function(){};
     taskbarViewElement.hide = function(){};
     taskbarViewElement.toggleVR = function(){};
+    taskbarViewElement.addTaskbar = function(){};
 
     taskbarPresenter = new TaskbarPresenter(taskbarViewElement, document.body);
 
@@ -55,8 +56,10 @@ describe('TaskbarPresenter', function() {
   it("should setupModel() creates a model object reference inside this taskbarPresenter class", function(){ 
 
     var model = sinon.fake();
+    var addTaskbar = sinon.spy(taskbarPresenter, "addTaskbar");
     taskbarPresenter.setupModel(model);
     expect(taskbarPresenter.model).to.be.equal(model);
+    expect(addTaskbar).calledOnce;
 
   });
 
