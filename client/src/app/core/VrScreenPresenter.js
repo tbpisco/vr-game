@@ -12,16 +12,20 @@ export class VrScreenPresenter {
     setupModel(_model){
         
         this.model = _model;
+        this.view.addActionMode(this.closeScreen.bind(this));
 
     };
 
     openScreen(){
-        this.view.addActionMode(this.closeScreen.bind(this));
+        
         this.view.show();
     };
 
-    closeScreen(){
+    closeScreen(event){
+
+        event.stopPropagation();
         this.view.hide();
+        
     };
 
 }

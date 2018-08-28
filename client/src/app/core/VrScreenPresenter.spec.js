@@ -32,13 +32,11 @@ describe('VrScreenPresenter', function() {
   });
 
   it("should openScreen() call view methods", function(){ 
-
-    var addActionMode = sinon.spy(vrScreenViewElement, "addActionMode");
+   
     var show = sinon.spy(vrScreenViewElement, "show");
 
     vrScreenPresenter.openScreen();
-
-    expect(addActionMode).calledOnce;
+    
     expect(show).calledOnce;
 
   })
@@ -46,8 +44,12 @@ describe('VrScreenPresenter', function() {
   it("should setupModel() creates a model object reference inside this vrScreenPresenter class", function(){ 
 
     var model = sinon.fake();
+    var addActionMode = sinon.spy(vrScreenViewElement, "addActionMode");
+
     vrScreenPresenter.setupModel(model);
+
     expect(vrScreenPresenter.model).to.be.equal(model);
+    expect(addActionMode).calledOnce;
 
   });
 
@@ -55,8 +57,15 @@ describe('VrScreenPresenter', function() {
 
     var hide = sinon.spy(vrScreenViewElement, "hide");
 
-    vrScreenPresenter.closeScreen();
+    var event = sinon.fake();
+    event.stopPropagation = function(){};
+    
+    var stopPropagation = sinon.fake();
+    sinon.replace(event, 'stopPropagation', stopPropagation);
+
+    vrScreenPresenter.closeScreen(event);
     expect(hide).calledOnce;
+    expect(stopPropagation).calledOnce;
 
   })
 

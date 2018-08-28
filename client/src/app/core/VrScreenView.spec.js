@@ -35,6 +35,7 @@ describe('VrScreenView', function() {
     
     var removeChild = sinon.fake();
     sinon.replace(document.body, 'removeChild', removeChild);
+
     vrScreenView.hide();
 
     expect(removeChild).calledOnce;

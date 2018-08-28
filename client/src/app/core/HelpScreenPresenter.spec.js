@@ -32,15 +32,8 @@ describe('HelpScreenPresenter', function() {
 
   it("should openHelpScreen() call view methods", function(){ 
 
-    var addHelpScreenContainer = sinon.spy(helpScreenViewElement, "addHelpScreenContainer");
-    var addActionMode = sinon.spy(helpScreenViewElement, "addActionMode");
     var show = sinon.spy(helpScreenViewElement, "show");
-
     helpScreenPresenter.openHelpScreen();
-
-    expect(addHelpScreenContainer).calledOnce;
-    expect(addHelpScreenContainer).calledWith("Help instructions goes here.");
-    expect(addActionMode).calledOnce;
     expect(show).calledOnce;
 
   })
@@ -48,8 +41,16 @@ describe('HelpScreenPresenter', function() {
   it("should setupModel() creates a model object reference inside this helpScreenPresenter class", function(){ 
 
     var model = sinon.fake();
+
+    var addHelpScreenContainer = sinon.spy(helpScreenViewElement, "addHelpScreenContainer");
+    var addActionMode = sinon.spy(helpScreenViewElement, "addActionMode");
+
     helpScreenPresenter.setupModel(model);
     expect(helpScreenPresenter.model).to.be.equal(model);
+
+    expect(addHelpScreenContainer).calledOnce;
+    expect(addHelpScreenContainer).calledWith("Help instructions goes here.");
+    expect(addActionMode).calledOnce;
 
   });
 

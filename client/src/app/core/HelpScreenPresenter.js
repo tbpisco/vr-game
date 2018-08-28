@@ -11,16 +11,20 @@ export class HelpScreenPresenter {
     }
 
     setupModel(_model){
+
         this.model = _model;
+        this.view.addHelpScreenContainer("Help instructions goes here.");
+        this.view.addActionMode(this[closeHelpScreen].bind(this));
+
     };
 
     openHelpScreen(){      
-        this.view.addHelpScreenContainer("Help instructions goes here.");
-        this.view.addActionMode(this[closeHelpScreen].bind(this));
+        
         this.view.show();
     };
 
-    [closeHelpScreen](){
-        this.view.hide();
+    [closeHelpScreen](event){
+        event.stopPropagation();
+        this.view.hide(event);
     };
 }

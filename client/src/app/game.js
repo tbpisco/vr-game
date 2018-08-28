@@ -37,6 +37,7 @@ export class GameApp {
 
 		this._vrScreenView = new VrScreenView();
 		this._vrScreen  = new VrScreenPresenter(this._vrScreenView);
+		this._vrScreen.setupModel(this._gameModel);
 
 		
 		if(this._gameModel.getVrEnabled() && this._gameModel.getIsMobile()){
