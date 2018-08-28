@@ -7,10 +7,17 @@ chai.use(require('sinon-chai'));
 var expect = chai.expect;
 var sinon = require('sinon');
 
+var addEventListener;
+var fontSizeManagerUtil;
+
 describe('FontSizeManagerUtil', function() {
 
-  var addEventListener = sinon.spy(window, 'addEventListener');
-  var fontSizeManagerUtil = new FontSizeManagerUtil(document.body);
+  before(function() {
+
+    addEventListener = sinon.spy(window, 'addEventListener');
+    fontSizeManagerUtil = new FontSizeManagerUtil(document.body);
+
+  });
 
   it('should addEventListener be called three times', function() {
 
