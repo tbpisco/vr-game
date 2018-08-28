@@ -31,7 +31,7 @@ export class TaskbarPresenter {
     };
 
     [openHelpScreen](){
-    	window.dispatchEvent(GameEvents.openHelpEvent);
+    	window.dispatchEvent(new CustomEvent(GameEvents.OPEN_HELP_SCREEN));
     };
 
     [showVrMode](){
@@ -41,9 +41,9 @@ export class TaskbarPresenter {
     [openVrScreen](){
         if(this.model.getIsMobile()){
             this.model.setVrEnabled();            
-            window.dispatchEvent(GameEvents.enableVr);
+            window.dispatchEvent(new CustomEvent(GameEvents.ENABLE_VR));
         } else {
-            window.dispatchEvent(GameEvents.openVrEvent);
+            window.dispatchEvent(new CustomEvent(GameEvents.OPEN_VR_SCREEN));
         }
     };    
 }
