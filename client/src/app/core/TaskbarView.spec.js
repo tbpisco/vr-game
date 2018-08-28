@@ -74,8 +74,6 @@ describe('TaskbarView', function() {
 
   })
 
-  
-
   after(function () {
     sinon.restore();
   });
