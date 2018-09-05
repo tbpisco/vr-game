@@ -20,7 +20,7 @@
     "build-dev": "webpack --config webpack.config.js",
     "build-prod": "cross-env NODE_ENV=production webpack --config webpack.config.js",
     "start": "webpack-dev-server",
-    "precommit": "npm run coverage",
+    "precommit": "npm run test",
     "coverage": "cross-env NODE_ENV=coverage nyc --reporter=lcov --reporter=text npm run test"
   },
   "author": "",
