@@ -1,13 +1,5 @@
 import { GameScreenPresenter } from './GameScreenPresenter';
 
-
-require('jsdom-global')()
-var chai = require('chai');
-chai.use(require('chai-dom'));
-chai.use(require('sinon-chai'));
-var expect = chai.expect;
-var sinon = require('sinon');
-
 var gameScreenPresenter;
 var gameScreenViewElement;
 
@@ -16,7 +8,8 @@ describe('GameScreenPresenter', function() {
 
   before(function() {
 
-    gameScreenViewElement = document.createElement("div");
+    gameScreenViewElement = {};
+    gameScreenViewElement.view = document.createElement("div");
     gameScreenViewElement.getView = function(){};
     gameScreenViewElement.show = function(){};
     
@@ -33,20 +26,14 @@ describe('GameScreenPresenter', function() {
 
   it("setupModel()", function(){
     
-    var model = sinon.fake();
+    var model = { getValue : function(){} };
 
-    var taskbarSetupModel = sinon.fake();
-    sinon.replace(gameScreenPresenter.taskbar, 'setupModel', taskbarSetupModel);
-    var vrGlassSetupModel = sinon.fake();
-    sinon.replace(gameScreenPresenter.vrGlass, 'setupModel', vrGlassSetupModel);
-    var sceneSetupModel = sinon.fake();
-    sinon.replace(gameScreenPresenter.scene, 'setupModel', sceneSetupModel);
-
-    var show = sinon.fake();
-    sinon.replace(gameScreenPresenter.view, 'show', show);
+    var taskbarSetupModel = sandbox.stub(gameScreenPresenter.taskbar, 'setupModel');
+    var vrGlassSetupModel = sandbox.stub(gameScreenPresenter.vrGlass, 'setupModel');
+    var sceneSetupModel = sandbox.stub(gameScreenPresenter.scene, 'setupModel');
+    var show = sandbox.stub(gameScreenPresenter.view, 'show');
 
     gameScreenPresenter.setupModel(model);
-
 
     expect(taskbarSetupModel).calledOnce;
     expect(vrGlassSetupModel).calledOnce;
@@ -58,13 +45,8 @@ describe('GameScreenPresenter', function() {
 
     expect(show).calledOnce;
 
+    sandbox.restore();
+
   })
 
-  after(function () {
-    
-    sinon.restore();
-
-  });
-
-  
 });

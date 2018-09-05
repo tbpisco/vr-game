@@ -1,20 +1,14 @@
 import { FontSizeManagerUtil } from './FontSizeManagerUtil.js';
 
-require('jsdom-global')();
-var chai = require('chai');
-chai.use(require('chai-dom'));
-chai.use(require('sinon-chai'));
-var expect = chai.expect;
-var sinon = require('sinon');
-
-var addEventListener;
-var fontSizeManagerUtil;
 
 describe('FontSizeManagerUtil', function() {
 
-  before(function() {
+  var addEventListener;
+  var fontSizeManagerUtil;
+  
+  beforeEach(function() {
 
-    addEventListener = sinon.spy(window, 'addEventListener');
+    addEventListener = sandbox.spy(window, 'addEventListener');
     fontSizeManagerUtil = new FontSizeManagerUtil(document.body);
 
   });
@@ -45,8 +39,8 @@ describe('FontSizeManagerUtil', function() {
   
   });
 
-  after(function () {
-    sinon.restore();
+  afterEach(function () {
+    sandbox.restore();
   });
   
 });

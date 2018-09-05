@@ -23,6 +23,8 @@ export class ScenePresenter {
         } */
         
         this[init]();
+
+        
     };
 
     [init](){ 
@@ -30,15 +32,32 @@ export class ScenePresenter {
         this.view.init(this.holder);
         this.view.show();
 
-        /*window.addEventListener("resize", this.resizeWindow.bind(this));
+        //window.addEventListener("resize", this.resizeWindow.bind(this));
 
         this.resizeWindow();
+        this.addEvents();
 
-        this.view.addTiles();
+        /*
 
         this.view.canvas[0].addEventListener( 'mouseup', onDocumentMouseUp, false );
         this.view.canvas[0].addEventListener( 'mousedown', onDocumentMouseDown, false );
         this.view.canvas[0].addEventListener( 'mousemove', onDocumentMouseMove, false );*/
+    };
+
+    addEvents(){
+    
+        //self.raycaster = new THREE.Raycaster();
+    
+        this.view.canvas.addEventListener("mousedown", function(event){
+
+            this.view.addElement({x: -500 + Math.floor(Math.random()*1000) , y:1000 , z: -500 + Math.floor(Math.random()*1000)  });
+        
+        }.bind(this));
+       
+    }
+
+    resizeWindow(){
+        this.view.updateSceneSize();
     };
 
     /*onDocumentMouseMove(event) {
@@ -92,9 +111,9 @@ export class ScenePresenter {
     
     };
 
-    resizeWindow(){
-       this.view.updateCanvasSize();
-    };*/
+    */
+
+   
     
 }
 

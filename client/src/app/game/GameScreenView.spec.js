@@ -1,12 +1,5 @@
 import { GameScreenView } from './GameScreenView.js';
 
-require('jsdom-global')()
-var chai = require('chai');
-chai.use(require('chai-dom'));
-chai.use(require('sinon-chai'));
-var expect = chai.expect;
-var sinon = require('sinon');
-
 var gameScreenView;
 var div;
 
@@ -34,31 +27,26 @@ describe('GameScreenView', function() {
 
   it("show() should call appenChild once", function(){
     
-    var appendChild = sinon.fake();
-    sinon.replace(document.body, 'appendChild', appendChild);
+    var appendChild = sandbox.spy(document.body, 'appendChild');
     gameScreenView.show();
 
     expect(appendChild).calledOnce;
     expect(appendChild).calledWith(div);
 
+    sandbox.restore();
+
   })
 
   it("hide() should call removeChild once", function(){
     
-    var removeChild = sinon.fake();
-    sinon.replace(document.body, 'removeChild', removeChild);
+    var removeChild = sandbox.spy(document.body, 'removeChild');
     gameScreenView.hide();
 
     expect(removeChild).calledOnce;
     expect(removeChild).calledWith(div);
 
+    sandbox.restore();
+
   })
 
-  after(function () {
-    
-    sinon.restore();
-
-  });
-
-  
 });

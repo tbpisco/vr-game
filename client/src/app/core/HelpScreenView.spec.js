@@ -1,12 +1,5 @@
 import { HelpScreenView } from './HelpScreenView';
 
-require('jsdom-global')()
-var chai = require('chai');
-chai.use(require('chai-dom'));
-chai.use(require('sinon-chai'));
-var expect = chai.expect;
-var sinon = require('sinon');
-
 var helpScreenView;
 var div;
 
@@ -14,7 +7,6 @@ describe('HelpScreenView', function() {
 
   before(function() {
 
-    var sinon = require('sinon');
     helpScreenView = new HelpScreenView();
     helpScreenView.addHelpScreenContainer("testing content.");
     div = helpScreenView.view;
@@ -23,23 +15,25 @@ describe('HelpScreenView', function() {
 
   it("show() should call appenChild once", function(){
     
-    var appendChild = sinon.fake();
-    sinon.replace(document.body, 'appendChild', appendChild);
+    var appendChild = sandbox.spy(document.body, 'appendChild');
     helpScreenView.show();
 
     expect(appendChild).calledOnce;
     expect(appendChild).calledWith(div);
 
+    sandbox.restore();
+
   })
 
   it("hide() should call removeChild once", function(){
     
-    var removeChild = sinon.fake();
-    sinon.replace(document.body, 'removeChild', removeChild);
+    var removeChild = sandbox.spy(document.body, 'removeChild');
     helpScreenView.hide();
 
     expect(removeChild).calledOnce;
     expect(removeChild).calledWith(div);
+
+    sandbox.restore();
 
   })
 
@@ -77,11 +71,8 @@ describe('HelpScreenView', function() {
     
     var closeFunction = function(){};
     
-    var addEventListener = sinon.fake();
-    sinon.replace(helpScreenView.view, 'addEventListener', addEventListener);
-
-    var addEventListenerButton = sinon.fake();
-    sinon.replace(helpScreenView.closeButton, 'addEventListener', addEventListenerButton);
+    var addEventListener = sandbox.spy(helpScreenView.view, 'addEventListener');
+    var addEventListenerButton = sandbox.spy(helpScreenView.closeButton, 'addEventListener');
 
     helpScreenView.addActionMode(closeFunction);
 
@@ -91,11 +82,7 @@ describe('HelpScreenView', function() {
     expect(addEventListenerButton).calledOnce;
     expect(addEventListenerButton).calledWith("click", closeFunction);
     
-
+    sandbox.restore();
   })
-
-  after(function () {
-    sinon.restore();
-  });
   
 });

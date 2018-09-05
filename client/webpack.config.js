@@ -1,3 +1,4 @@
+
 const path = require('path');
 const babiliPlugin = require('babili-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
@@ -45,8 +46,11 @@ plugins.push(new CopyWebpackPlugin([{
     from: 'src/fonts/', to: 'fonts/'
 }]));
 
-plugins.push(new webpack.ProvidePlugin({qrcode:"qrcode"}));
-plugins.push(new webpack.ProvidePlugin({THREE:"three"}));
+plugins.push(new webpack.ProvidePlugin({qrcode:"qrcode", 
+                                        THREE:"three", 
+                                        Ammo:"ammo.js"
+                                    }));
+
 
 plugins.push(new CopyWebpackPlugin([{
     from: 'icons/*.png', to: __dirname + '/build/'
@@ -100,7 +104,8 @@ module.exports = {
     resolve:{
         alias:{
             qrcode:"qrcode-generator/qrcode.js",
-            THREE: "three/build/three.min.js"
+            THREE: "three/build/three.min.js",
+            Ammo: "ammo.js/ammo.js"
         }
     },
     entry: {
@@ -108,7 +113,7 @@ module.exports = {
       //  inline: './src/app/inline.js',
         scss: './src/scss/style.scss',
       //  inlinescss: './src/scss/inline_style.scss'//,
-       vendor: ['babel-polyfill', 'qrcode-generator' , 'classlist-polyfill', 'three']
+       vendor: ['babel-polyfill', 'qrcode-generator' , 'classlist-polyfill', 'three' , 'ammo.js'/*, './src/app/libs/physi.js'*/]
     },
     output: {
         filename: 'js/[name].js',
@@ -144,7 +149,11 @@ module.exports = {
                     "sass-loader"
                 ]
             },*/
-
+            {
+                test: /\.worker\.js$/,
+                use: { loader: 'worker-loader' }
+              },
+        
             {
                 test: /\.scss$/,
                 use: [

@@ -1,12 +1,5 @@
 import { HelpScreenPresenter } from './HelpScreenPresenter';
 
-require('jsdom-global')();
-var chai = require('chai');
-chai.use(require('chai-dom'));
-chai.use(require('sinon-chai'));
-var expect = chai.expect;
-var sinon = require('sinon');
-
 var helpScreenPresenter;
 var helpScreenViewElement;
 
@@ -32,18 +25,20 @@ describe('HelpScreenPresenter', function() {
 
   it("should openHelpScreen() call view methods", function(){ 
 
-    var show = sinon.spy(helpScreenViewElement, "show");
+    var show = sandbox.spy(helpScreenViewElement, "show");
     helpScreenPresenter.openHelpScreen();
     expect(show).calledOnce;
+
+    sandbox.restore();
 
   })
 
   it("should setupModel() creates a model object reference inside this helpScreenPresenter class", function(){ 
 
-    var model = sinon.fake();
+    var model = { getValue: function(){} };
 
-    var addHelpScreenContainer = sinon.spy(helpScreenViewElement, "addHelpScreenContainer");
-    var addActionMode = sinon.spy(helpScreenViewElement, "addActionMode");
+    var addHelpScreenContainer = sandbox.spy(helpScreenViewElement, "addHelpScreenContainer");
+    var addActionMode = sandbox.spy(helpScreenViewElement, "addActionMode");
 
     helpScreenPresenter.setupModel(model);
     expect(helpScreenPresenter.model).to.be.equal(model);
@@ -52,10 +47,12 @@ describe('HelpScreenPresenter', function() {
     expect(addHelpScreenContainer).calledWith("Help instructions goes here.");
     expect(addActionMode).calledOnce;
 
+    sandbox.restore();
+
   });
 
   after(function () {
-    sinon.restore();
+    
   });
   
 });

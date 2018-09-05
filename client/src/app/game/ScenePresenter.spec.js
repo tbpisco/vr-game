@@ -1,21 +1,16 @@
 import { ScenePresenter } from './ScenePresenter.js';
 
-require('jsdom-global')()
-var chai = require('chai');
-chai.use(require('chai-dom'));
-chai.use(require('sinon-chai'));
-var expect = chai.expect;
-var sinon = require('sinon');
-
 var scenePresenter;
 var sceneViewElement = document.createElement("div");
 sceneViewElement.init = function(){};
+sceneViewElement.show = function(){};
+sceneViewElement.updateSceneSize = function() {};
 var holder = document.createElement("div");
 
 describe('ScenePresenter', function() {
 
   before(function() {
-
+    
     scenePresenter = new ScenePresenter(sceneViewElement, holder);
 
   });
@@ -35,20 +30,35 @@ describe('ScenePresenter', function() {
 
   it("setupModel() should call init once", function(){
     
-    var init = sinon.fake();
-    sinon.replace(scenePresenter.view, 'init', init);
+    var init = sandbox.stub(scenePresenter.view, 'init');
+    var show = sandbox.stub(scenePresenter.view, 'show');
+    var resizeWindow = sandbox.stub( scenePresenter , 'resizeWindow');
+    var addEvents = sandbox.stub( scenePresenter , 'addEvents');
+   // var updateSceneSize = sandbox.spy(scenePresenter.view , 'updateSceneSize');
+
     scenePresenter.setupModel();
 
     expect(init).calledOnce;
     expect(init).calledWith(scenePresenter.holder);
+    expect(show).calledOnce;
+    expect(resizeWindow).calledOnce;
+    expect(addEvents).calledOnce;
+   // expect(updateSceneSize).calledAfter(resizeWindow);
+   // expect(updateSceneSize).calledOnce;
+
+    sandbox.restore();
 
   })
 
-  after(function () {
+  it("resizeWindow() should call updateSceneSize once", function(){
     
-    sinon.restore();
+    var updateSceneSize = sandbox.spy(scenePresenter.view , 'updateSceneSize');
+    scenePresenter.resizeWindow();
 
-  });
+    expect(updateSceneSize).calledOnce;
 
+    sandbox.restore();
+
+  })
   
 });

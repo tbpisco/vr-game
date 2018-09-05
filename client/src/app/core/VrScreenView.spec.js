@@ -1,12 +1,5 @@
 import { VrScreenView } from './VrScreenView';
 
-require('jsdom-global')()
-var chai = require('chai');
-chai.use(require('chai-dom'));
-chai.use(require('sinon-chai'));
-var expect = chai.expect;
-var sinon = require('sinon');
-
 var vrScreenView;
 var div;
 
@@ -14,7 +7,6 @@ describe('VrScreenView', function() {
 
   before(function() {
 
-    var sinon = require('sinon');
     vrScreenView = new VrScreenView();
     div = vrScreenView.view;
 
@@ -22,24 +14,26 @@ describe('VrScreenView', function() {
 
   it("show() should call appenChild once", function(){
     
-    var appendChild = sinon.fake();
-    sinon.replace(document.body, 'appendChild', appendChild);
+    var appendChild = sandbox.spy(document.body, 'appendChild');
     vrScreenView.show();
 
     expect(appendChild).calledOnce;
     expect(appendChild).calledWith(div);
 
+    sandbox.restore();
+
   })
 
   it("hide() should call removeChild once", function(){
     
-    var removeChild = sinon.fake();
-    sinon.replace(document.body, 'removeChild', removeChild);
+    var removeChild = sandbox.spy(document.body, 'removeChild');
 
     vrScreenView.hide();
 
     expect(removeChild).calledOnce;
     expect(removeChild).calledWith(div);
+
+    sandbox.restore();
 
   })
 
@@ -77,11 +71,9 @@ describe('VrScreenView', function() {
     
     var closeFunction = function(){};
     
-    var addEventListener = sinon.fake();
-    sinon.replace(vrScreenView.view, 'addEventListener', addEventListener);
+    var addEventListener = sandbox.spy(vrScreenView.view, 'addEventListener');
 
-    var addEventListenerButton = sinon.fake();
-    sinon.replace(vrScreenView.closeButton, 'addEventListener', addEventListenerButton);
+    var addEventListenerButton = sandbox.spy(vrScreenView.closeButton, 'addEventListener');
 
     vrScreenView.addActionMode(closeFunction);
 
@@ -91,11 +83,8 @@ describe('VrScreenView', function() {
     expect(addEventListenerButton).calledOnce;
     expect(addEventListenerButton).calledWith("click", closeFunction);
     
+    sandbox.restore();
 
   })
-
-  after(function () {
-    sinon.restore();
-  });
   
 });

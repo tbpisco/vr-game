@@ -1,12 +1,5 @@
 import { TaskbarPresenter } from './TaskbarPresenter';
 
-require('jsdom-global')();
-var chai = require('chai');
-chai.use(require('chai-dom'));
-chai.use(require('sinon-chai'));
-var expect = chai.expect;
-var sinon = require('sinon');
-
 var taskbarPresenter;
 var taskbarViewElement;
 
@@ -41,9 +34,9 @@ describe('TaskbarPresenter', function() {
 
   it("should addTaskbar() call view methods", function(){ 
 
-    var addActionVr = sinon.spy(taskbarViewElement, "addActionVr");
-    var addActionHelp = sinon.spy(taskbarViewElement, "addActionHelp");
-    var show = sinon.spy(taskbarViewElement, "show");
+    var addActionVr = sandbox.spy(taskbarViewElement, "addActionVr");
+    var addActionHelp = sandbox.spy(taskbarViewElement, "addActionHelp");
+    var show = sandbox.spy(taskbarViewElement, "show");
 
     taskbarPresenter.addTaskbar();
 
@@ -51,29 +44,31 @@ describe('TaskbarPresenter', function() {
     expect(addActionHelp).calledOnce;
     expect(show).calledOnce;
 
+    sandbox.restore();
+
   })
 
   it("should setupModel() creates a model object reference inside this taskbarPresenter class", function(){ 
 
-    var model = sinon.fake();
-    var addTaskbar = sinon.spy(taskbarPresenter, "addTaskbar");
+    var model = { getValue: function() {} };
+    var addTaskbar = sandbox.spy(taskbarPresenter, "addTaskbar");
     taskbarPresenter.setupModel(model);
     expect(taskbarPresenter.model).to.be.equal(model);
     expect(addTaskbar).calledOnce;
+
+    sandbox.restore();
 
   });
 
   it("should hide() call hide method from view", function(){ 
 
-    var hide = sinon.spy(taskbarViewElement, "hide");
-
+    var hide = sandbox.spy(taskbarViewElement, "hide")
     taskbarPresenter.hide();
+
     expect(hide).calledOnce;
 
-  })
+    sandbox.restore();
 
-  after(function () {
-    sinon.restore();
-  });
+  })
   
 });

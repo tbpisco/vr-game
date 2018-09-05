@@ -1,7 +1,5 @@
 import { GetURLParameterByName } from './GetURLParameterByName.js';
 
-var expect = require('chai').expect;
-
 var url = "http://localhost:8080/index.html?vr=true";
 var url_1 = "http://localhost:8080/index.html";
 var url_2 = "http://localhost:8080/index.html?vr=undefined";
