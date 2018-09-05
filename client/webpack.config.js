@@ -46,6 +46,7 @@ plugins.push(new CopyWebpackPlugin([{
 }]));
 
 plugins.push(new webpack.ProvidePlugin({qrcode:"qrcode"}));
+plugins.push(new webpack.ProvidePlugin({THREE:"three"}));
 
 plugins.push(new CopyWebpackPlugin([{
     from: 'icons/*.png', to: __dirname + '/build/'
@@ -98,7 +99,8 @@ plugins.push(new webpack.DefinePlugin({ SERVICE_URL }));
 module.exports = {
     resolve:{
         alias:{
-            qrcode:"qrcode-generator/qrcode.js"
+            qrcode:"qrcode-generator/qrcode.js",
+            THREE: "three/build/three.min.js"
         }
     },
     entry: {
@@ -106,7 +108,7 @@ module.exports = {
       //  inline: './src/app/inline.js',
         scss: './src/scss/style.scss',
       //  inlinescss: './src/scss/inline_style.scss'//,
-       vendor: ['babel-polyfill', 'qrcode-generator' , 'classlist-polyfill']
+       vendor: ['babel-polyfill', 'qrcode-generator' , 'classlist-polyfill', 'three']
     },
     output: {
         filename: 'js/[name].js',

@@ -28,6 +28,7 @@ export class ScenePresenter {
     [init](){ 
         
         this.view.init(this.holder);
+        this.view.show();
 
         /*window.addEventListener("resize", this.resizeWindow.bind(this));
 

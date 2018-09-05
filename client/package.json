@@ -72,6 +72,7 @@
     "style-ext-html-webpack-plugin": "^3.4.7",
     "style-loader": "^0.18.2",
     "svg-inline-loader": "^0.8.0",
+    "three": "^0.95.0",
     "url-loader": "^0.5.9",
     "webpack": "^3.12.0",
     "webpack-dev-server": "^2.5.1",

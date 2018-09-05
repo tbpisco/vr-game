@@ -11,7 +11,8 @@ export class SceneView {
   init(_holder){
       this.holder = _holder;
       this[addSceneContainer]();
-      //this.addCanvasElement();
+      this.addCanvasElement();
+      this.addRendererWebGL();
   };
 
   [addSceneContainer](){
@@ -28,24 +29,30 @@ export class SceneView {
 
   };
 
-/*addCanvasElement(){
-    //self.canvas = createCanvasElement();
-   // self.view.append(self.canvas);
-};
+  addCanvasElement(){
 
-createCanvasElement(){
-   // return $('<canvas id="farm-canvas"></canvas>');
-};
+    this.canvas = this.createCanvasElement();
+    this.view.appendChild(this.canvas);
 
-addRendererWebGL(){
-    self.renderer = new THREE.WebGLRenderer({canvas: self.canvas[0], antialias:true});
-    self.renderer.sortObjects = false;
-    self.renderer.setClearColor(0x000000, 0);
-    self.renderer.autoClear = false;
-    self.renderer.shadowMapEnabled = true;
-    self.renderer.shadowMapSoft = true;
-};
+  };
 
+  createCanvasElement(){
+
+    let view = document.createElement("canvas"); 
+    view.id= "scene-stage";
+    return view;
+
+  };
+
+  addRendererWebGL(){
+    this.renderer = new THREE.WebGLRenderer({canvas: this.canvas, antialias:true});
+    this.renderer.sortObjects = false;
+    this.renderer.setClearColor(0x000000, 0);
+    this.renderer.autoClear = false;
+    this.renderer.shadowMapEnabled = true;
+    this.renderer.shadowMapSoft = true;
+ };
+/*
 addScene(){
     //self.scene = new THREE.Scene();
     //self.scene.background = new THREE.Color("skyblue");
