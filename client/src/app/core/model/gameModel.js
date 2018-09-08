@@ -1,27 +1,30 @@
+let isMobile = new WeakMap();
+let vrEnabled = new WeakMap();
 
 export class GameModel {
 
 	constructor() {
 
-        this.isMobile = false;
-        this.vrEnabled = false;
+        this.setIsMobile(false);
+        this.setVrEnabled(false);
+        
     };
 
     getIsMobile(){
-        return this.isMobile;
+        return isMobile.get(this);
     };
 
     setIsMobile(value){
-        this.isMobile = value;
+        isMobile.set(this, value);
     };
 
     getVrEnabled(){
-        return this.vrEnabled;
+        return vrEnabled.get(this);
     };
 
     setVrEnabled(value){
-        if(value === undefined)this.vrEnabled = !this.vrEnabled;
-            else this.vrEnabled = value;
+        if(value === undefined)vrEnabled.set(this, !this.getVrEnabled());
+            else vrEnabled.set(this, value);
     };
 
 }
